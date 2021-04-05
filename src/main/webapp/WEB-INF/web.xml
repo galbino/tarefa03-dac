@@ -5,16 +5,16 @@
 
 <web-app>
     <display-name>Heroku JAX-RS</display-name>
-    <servlet>
-        <servlet-name>JAX-RS</servlet-name>
-        <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <filter>
+        <filter-name>jersey</filter-name>
+        <filter-class>org.glassfish</filter-class>
         <init-param>
             <param-name>javax.ws.rs.Application</param-name>
             <param-value>com.example.ResourceConfig</param-value>
         </init-param>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>JAX-RS</servlet-name>
-        <url-pattern>/jax-rs/*</url-pattern>
-    </servlet-mapping>
+    </filter>
+    <filter-mapping>
+        <filter-name>jersey</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
