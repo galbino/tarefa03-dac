@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <webroots>
+          <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
+        </webroots>
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
+      </configuration>
+    </facet>
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
@@ -27,6 +38,18 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.hibernate:hibernate-core:5.2.12.Final" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.persistence:javax.persistence-api:2.2" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-grizzly:1.9.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-server:1.9.1" level="project" />
+    <orderEntry type="library" name="Maven: asm:asm:3.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.jersey:jersey-core:1.9.1" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.grizzly:grizzly-servlet-webserver:1.9.18-i" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.grizzly:grizzly-http:1.9.18-i" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.grizzly:grizzly-framework:1.9.18-i" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.grizzly:grizzly-rcm:1.9.18-i" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.grizzly:grizzly-portunif:1.9.18-i" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.grizzly:grizzly-http-servlet:1.9.18-i" level="project" />
+    <orderEntry type="library" name="Maven: com.sun.grizzly:grizzly-utils:1.9.18-i" level="project" />
+    <orderEntry type="library" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: mysql:mysql-connector-java:5.1.40" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.ws.rs:javax.ws.rs-api:2.1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:4.0.1" level="project" />
