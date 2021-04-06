@@ -8,9 +8,6 @@ import com.uff.tarefa_03.model.Edicao;
 import com.uff.tarefa_03.model.Evento;
 import com.uff.tarefa_03.service.EventoService;
 import com.uff.tarefa_03.service.impl.EventoServiceImpl;
-
-import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -73,7 +70,7 @@ public class EventoController {
     }
 
     public Map<String, Object> translateEvento(Evento resp){
-        Map<String, Object> attributes = new HashMap<>();
+        Map<String, Object> attributes = new HashMap<String, Object>();
         if (resp != null) {
             attributes.put("id", resp.getId());
             attributes.put("area", resp.getArea());
