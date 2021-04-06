@@ -1,7 +1,7 @@
 package com.uff.tarefa_03.controller;
 
 import com.uff.tarefa_03.model.Edicao;
-import com.uff.tarefa_03.model.Evento;
+import com.uff.tarefa_03.model.Edicao;
 import com.uff.tarefa_03.service.EdicaoService;
 import com.uff.tarefa_03.service.impl.EdicaoServiceImpl;
 
@@ -34,37 +34,47 @@ public class EdicaoController {
     }
     @GET
     @Path("{id}")
-    public Edicao getEdicao(@PathParam("id") Integer id){
+    public Response getEdicao(@PathParam("id") Integer id){
         Edicao resp = edicaoService.buscarEdicao(id);
-        Map<String, Object> attributes = translateEdicao(resp);
-
-        return resp;
+        if (resp != null){
+            Map<String, Object> attributes = translateEdicao(resp);
+            return Response.ok(resp).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @DELETE
     @Path("{id}")
     public Response deleteEdicao(@PathParam("id") Integer id){
-        edicaoService.removerEdicao(id);
-        return Response.ok().build();
+        boolean result = edicaoService.removerEdicao(id);
+        if (result){
+            return Response.ok().build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 
     @PUT
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Edicao updateEdicao(@PathParam("id") Integer id, Edicao edicao){
-        Edicao edicaoUpd = edicaoService.updateEdicao(id, edicao);
-        return edicaoUpd;
+    public Response updateEdicao(@PathParam("id") Integer id, Edicao edicao){
+        Edicao updated = edicaoService.updateEdicao(id, edicao);
+        if (updated != null){
+            return Response.ok(updated).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createEdicao(Edicao edicao){
-        edicaoService.salvarEdicao(edicao);
-        return Response.ok().build();
+        Edicao novoEdicao = edicaoService.salvarEdicao(edicao);
+        return Response.ok(novoEdicao).build();
     }
 
     public Map<String, Object> translateEdicao(Edicao resp){
-        Map<String, Object> attributes = new HashMap<>();
+        Map<String, Object> attributes = new HashMap<String, Object>();
         if (resp != null) {
             attributes.put("id", resp.getId());
             attributes.put("numero", resp.getNumero());

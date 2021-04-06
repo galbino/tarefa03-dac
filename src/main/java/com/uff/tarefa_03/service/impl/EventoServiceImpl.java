@@ -9,7 +9,6 @@ import java.util.List;
 public class EventoServiceImpl implements EventoService {
     private EntityManager em;
 
-    @Override
     public Evento salvarEvento(Evento evento){
         em = JPAUtil.getEM();
         em.getTransaction().begin();
@@ -17,14 +16,16 @@ public class EventoServiceImpl implements EventoService {
         em.getTransaction().commit();
         return evento;
     }
-    @Override
     public Evento buscarEvento(Integer id){
         em = JPAUtil.getEM();
         Evento evento = em.find(Evento.class, id);
-        em.refresh(evento);
-        return evento;
+        if (evento != null) {
+            em.refresh(evento);
+            return evento;
+        }
+        return null;
     }
-    @Override
+
     public boolean removerEvento(Integer id){
         em = JPAUtil.getEM();
         Evento evento = em.find(Evento.class, id);
@@ -37,7 +38,7 @@ public class EventoServiceImpl implements EventoService {
         }
         return false;
     }
-    @Override
+
     public List<Evento> listarEventos(){
         em = JPAUtil.getEM();
         List<Evento> eventoList = em.createQuery("SELECT a FROM Evento a", Evento.class).getResultList();

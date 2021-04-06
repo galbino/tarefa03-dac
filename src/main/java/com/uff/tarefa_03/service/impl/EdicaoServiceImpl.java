@@ -10,7 +10,6 @@ import java.util.List;
 public class EdicaoServiceImpl implements EdicaoService {
     private EntityManager em;
 
-    @Override
     public Edicao salvarEdicao(Edicao edicao){
         em = JPAUtil.getEM();
         em.getTransaction().begin();
@@ -19,14 +18,17 @@ public class EdicaoServiceImpl implements EdicaoService {
         em.close();
         return edicao;
     }
-    @Override
+
     public Edicao buscarEdicao(Integer id){
         em = JPAUtil.getEM();
         Edicao edicao = em.find(Edicao.class, id);
-        em.refresh(edicao);
-        return edicao;
+        if (edicao != null) {
+            em.refresh(edicao);
+            return edicao;
+        }
+        return null;
     }
-    @Override
+
     public boolean removerEdicao(Integer id){
         em = JPAUtil.getEM();
         Edicao edicao = em.find(Edicao.class, id);
@@ -39,7 +41,7 @@ public class EdicaoServiceImpl implements EdicaoService {
         }
         return false;
     }
-    @Override
+
     public List<Edicao> listarEdicoes(String cidade, Date dataInicio){
         em = JPAUtil.getEM();
         String query = "SELECT a FROM Edicao a";
@@ -49,9 +51,9 @@ public class EdicaoServiceImpl implements EdicaoService {
         }
         if (dataInicio != null){
             if (!complement.equals("")) {
-                complement += " and a.dataInicio <= '" + dataInicio + "'";
+                complement += " and a.dataInicio >= '" + dataInicio + "'";
             } else {
-                complement += " where a.dataInicio <= '" + dataInicio + "'";
+                complement += " where a.dataInicio >= '" + dataInicio + "'";
             }
         }
         if (!complement.equals("")){

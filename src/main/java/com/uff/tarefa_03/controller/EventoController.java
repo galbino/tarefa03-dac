@@ -8,6 +8,8 @@ import com.uff.tarefa_03.model.Edicao;
 import com.uff.tarefa_03.model.Evento;
 import com.uff.tarefa_03.service.EventoService;
 import com.uff.tarefa_03.service.impl.EventoServiceImpl;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +35,13 @@ public class EventoController {
     }
     @GET
     @Path("{id}")
-    public Evento getEvento(@PathParam("id") Integer id){
+    public Response getEvento(@PathParam("id") Integer id){
         Evento resp = eventoService.buscarEvento(id);
-        if (resp != null) {
+        if (resp != null){
             Map<String, Object> attributes = translateEvento(resp);
-            return resp;
+            return Response.ok(resp).build();
         }
-        return null;
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @DELETE
@@ -58,15 +60,18 @@ public class EventoController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response updateEvento(@PathParam("id") Integer id, Evento evento){
-        eventoService.updateEvento(id, evento);
-        return Response.ok().build();
+        Evento updated = eventoService.updateEvento(id, evento);
+        if (updated != null){
+            return Response.ok(updated).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createEvento(Evento evento){
-        eventoService.salvarEvento(evento);
-        return Response.ok().build();
+        Evento novoEvento = eventoService.salvarEvento(evento);
+        return Response.ok(novoEvento).build();
     }
 
     public Map<String, Object> translateEvento(Evento resp){
@@ -77,7 +82,7 @@ public class EventoController {
             for (Edicao edicao : resp.getEdicoes()) {
                 edicao.setEvento(null);
             }
-            attributes.put("edicoes", resp.getEdicoes());
+            if (!resp.getEdicoes().isEmpty()) attributes.put("edicoes", resp.getEdicoes());
             attributes.put("instituicao", resp.getInstituicao());
             attributes.put("sigla", resp.getSigla());
             attributes.put("nome", resp.getNome());
