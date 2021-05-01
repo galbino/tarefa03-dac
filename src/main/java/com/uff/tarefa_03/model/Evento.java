@@ -15,7 +15,7 @@ public class Evento {
     private String area;
     private String instituicao;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "evento", orphanRemoval = true)
     private List<Edicao> edicoes;
 
 

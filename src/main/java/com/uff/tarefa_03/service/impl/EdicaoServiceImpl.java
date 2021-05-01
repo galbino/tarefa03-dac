@@ -47,7 +47,7 @@ public class EdicaoServiceImpl implements EdicaoService {
         String query = "SELECT a FROM Edicao a";
         String complement = "";
         if (cidade != null){
-            complement += " where a.cidadeSede = '" + cidade + "'";
+            complement += " where a.cidadeSede like '%" + cidade + "%'";
         }
         if (dataInicio != null){
             if (!complement.equals("")) {
